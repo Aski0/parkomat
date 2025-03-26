@@ -1,34 +1,39 @@
 package com.example.parkomat.model;
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Data;
+
+@Data
+@JsonIgnoreProperties(ignoreUnknown = true)
+@Table(name = "Parki")
 @Entity
-@Table(name = "Parki") // Musi pasować do nazwy tabeli w bazie
 public class Park {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "park_id")
-    private Long id;
-
-    @Column(name = "nazwa", nullable = false)
+    private Long park_id;
     private String nazwa;
-
     @Column(name = "zarys_mapy")
-    private String zarysMapy;
+    private String zarys_mapy;
+    private String logo_parku_link;
 
-    @Column(name = "logo_parku_link")
-    private String logoParcuLink;
+    public void setId(Long park_id) {
+        this.park_id = park_id;
+    }
 
-    // Gettery i settery
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return park_id;
+    }
 
-    public String getNazwa() { return nazwa; }
-    public void setNazwa(String nazwa) { this.nazwa = nazwa; }
+    public void setPark_id(Long parkId) {
+        this.park_id = parkId;
+    }
 
-    public String getZarysMapy() { return zarysMapy; }
-    public void setZarysMapy(String zarysMapy) { this.zarysMapy = zarysMapy; }
-
-    public String getLogoParcuLink() { return logoParcuLink; }
-    public void setLogoParcuLink(String logoParcuLink) { this.logoParcuLink = logoParcuLink; }
+    public Long getPark_id() {
+        return park_id;
+    }
 }
+
