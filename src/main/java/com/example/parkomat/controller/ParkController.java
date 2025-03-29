@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/parki")
-@CrossOrigin(origins = "http://localhost:5174") // Jeśli frontend działa na porcie 3000
+@RequestMapping("/api/parks")
+@CrossOrigin(origins = "http://localhost:5174")
 public class ParkController {
     private final ParkService parkService;
 
