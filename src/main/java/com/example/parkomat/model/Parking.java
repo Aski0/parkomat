@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "ParkingLots")
-public class ParkingLot {
+public class Parking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "parking_id")
@@ -17,10 +17,10 @@ public class ParkingLot {
     @Column(name = "manager_id")
     private Long managerId;
 
-    @Column(name = "latitude")
+    @Column(name = "latitude",nullable = false)
     private Long latitude;
 
-    @Column(name = "longitude")
+    @Column(name = "longitude",nullable = false)
     private Long longitude;
 
     @Column(name = "park_id")

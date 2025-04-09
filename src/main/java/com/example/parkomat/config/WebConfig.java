@@ -1,12 +1,13 @@
 package com.example.parkomat.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
-
-public class WebConfig implements WebMvcConfigurer{
+@Configuration
+public class WebConfig implements WebMvcConfigurer {
 
     @Value("${app.cors.allowed-origins}")
     private String allowedOrigins;
@@ -19,9 +20,10 @@ public class WebConfig implements WebMvcConfigurer{
 
     @Value("${app.cors.allow-credentials}")
     private boolean allowCredentials;
+
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/api/**")
+        registry.addMapping("/**")
                 .allowedOrigins(allowedOrigins.split(","))
                 .allowedMethods(allowedMethods.split(","))
                 .allowedHeaders(allowedHeaders.split(","))

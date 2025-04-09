@@ -5,9 +5,10 @@ import com.example.parkomat.service.ParkService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
+
+
 @RestController
 @RequestMapping("/api/parks")
-@CrossOrigin(origins = "http://localhost:5174")
 public class ParkController {
     private final ParkService parkService;
 
@@ -19,4 +20,25 @@ public class ParkController {
     public List<Park> getParks() {
         return parkService.getAllParks();
     }
+
+    @GetMapping("/{id}")
+    public Park getPark(@PathVariable int id) {
+        return parkService.getParkById(id);
+    }
+
+    @PostMapping
+    public Park createPark(@RequestBody Park park) {
+        return parkService.createPark(park);
+    }
+
+    @PutMapping("/{id}")
+    public Park updatePark(@PathVariable int id, @RequestBody Park park) {
+        return parkService.updatePark(id, park);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletePark(@PathVariable int id) {
+        parkService.deletePark(id);
+    }
 }
+
