@@ -1,0 +1,24 @@
+meta {
+  name: update
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/parks/:id
+  body: json
+  auth: inherit
+}
+
+params:path {
+  id: 6
+}
+
+body:json {
+  {
+    "name": "Białowieża National Park",
+    "latitude": 52.7019,
+    "longitude": 23.8191,
+    "parkLogoLink": "http://example.com/bialowieza_logo.png"
+  }
+}

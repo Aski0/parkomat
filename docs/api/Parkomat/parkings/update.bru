@@ -1,0 +1,25 @@
+meta {
+  name: update
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/parkings/:id
+  body: json
+  auth: inherit
+}
+
+params:path {
+  id: 1
+}
+
+body:json {
+  {
+      "name": "dhkjufhg",
+      "managerId": 1,
+      "latitude": null,
+      "longitude": null,
+      "parkId": 1
+    }
+}
