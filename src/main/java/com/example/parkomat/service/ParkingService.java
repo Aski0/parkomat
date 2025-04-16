@@ -1,7 +1,10 @@
 package com.example.parkomat.service;
+import com.example.parkomat.dto.ParkingDto;
 import com.example.parkomat.model.Parking;
+import com.example.parkomat.model.User;
 import com.example.parkomat.repository.ParkingRepository;
 import com.example.parkomat.service.exceptions.ParkNotFoundException;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -23,9 +26,16 @@ public class ParkingService {
 
         return p.orElseThrow(() -> new ParkNotFoundException(parkingId));
     }
-    public Parking createParking (Parking parking) {
+    public Parking createParking(ParkingDto dto) {
+        System.out.println(dto);
+        Parking parking = new Parking();
+        parking.setName(dto.getName());
+        parking.setLatitude(dto.getLatitude());
+        parking.setLongitude(dto.getLongitude());
+        parking.setParkId(dto.getParkId());
+        parking.setManagerId(dto.getManagerId());
 
-        return parkingRepository.saveAndFlush(parking);
+        return parkingRepository.save(parking);
     }
     public Parking updateParking (long parkingId, Parking parking) {
         parking.setId(parkingId);

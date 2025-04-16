@@ -2,9 +2,12 @@ package com.example.parkomat.controller;
 
 
 import com.example.parkomat.dto.LoginDto;
+import com.example.parkomat.dto.ParkingDto;
 import com.example.parkomat.dto.UserDto;
+import com.example.parkomat.model.Parking;
 import com.example.parkomat.model.User;
 import com.example.parkomat.service.UserService;
+import com.example.parkomat.service.ParkingService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

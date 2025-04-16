@@ -2,7 +2,9 @@
 package com.example.parkomat.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "ParkingLots")
 public class Parking {
