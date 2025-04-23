@@ -8,13 +8,13 @@ import jakarta.persistence.*;
 public class Parking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "parking_id")
+    @Column(name = "parking_id",nullable = false)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name",nullable = false)
     private String name;
 
-    @Column(name = "manager_id")
+    @Column(name = "manager_id",nullable = false)
     private Long managerId;
 
     @Column(name = "latitude",nullable = false)
@@ -23,7 +23,7 @@ public class Parking {
     @Column(name = "longitude",nullable = false)
     private Long longitude;
 
-    @Column(name = "park_id")
+    @Column(name = "park_id",nullable = false)
     private Long parkId;
 
     public Long getId() { return id; }

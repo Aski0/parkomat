@@ -1,0 +1,26 @@
+meta {
+  name: update
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/reservations/:id
+  body: json
+  auth: inherit
+}
+
+params:path {
+  id: 2
+}
+
+body:json {
+  {
+    "reservationEndDate": "2025-04-23T19:02:05.128+00:00",
+    "reservationStartDate": "2025-04-23T19:02:05.128+00:00",
+    "groupId": 1,
+    "parkingCode": 222223422,
+    "reserverEmail": "xd",
+    "status": null
+  }
+}

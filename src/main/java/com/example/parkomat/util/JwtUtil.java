@@ -1,4 +1,4 @@
-package com.example.parkomat.security;
+package com.example.parkomat.util;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
