@@ -1,7 +1,6 @@
 package com.example.parkomat.service;
 
 import com.example.parkomat.model.User;
-import com.example.parkomat.security.JwtUtil;
 import com.example.parkomat.dto.LoginDto;
 import com.example.parkomat.dto.UserDto;
 import com.example.parkomat.repository.UserRepository;
@@ -18,12 +17,10 @@ import java.util.ArrayList;
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final PasswordEncoder encoder;
-    private final JwtUtil jwtUtil;
 
-    public UserService(UserRepository userRepository, PasswordEncoder encoder, JwtUtil jwtUtil) {
+    public UserService(UserRepository userRepository, PasswordEncoder encoder) {
         this.userRepository = userRepository;
         this.encoder = encoder;
-        this.jwtUtil = jwtUtil;
     }
 
     public User register(UserDto dto) {
@@ -43,7 +40,7 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
-    public String login(LoginDto dto) {
+    public User login(LoginDto dto) {
         User user = userRepository.findByEmail(dto.getEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("Nie znaleziono użytkownika"));
 
@@ -51,9 +48,8 @@ public class UserService implements UserDetailsService {
             throw new BadCredentialsException("Nieprawidłowe dane logowania");
         }
 
-        return jwtUtil.generateToken(user.getEmail());
+        return user;
     }
-
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email)

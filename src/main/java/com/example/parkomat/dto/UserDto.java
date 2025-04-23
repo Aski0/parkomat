@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class UserDto {
     @NotBlank(message = "Email jest wymagany")
-    @Email(message = "Nieprawidłowy format email")
+    @Email(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "Podaj poprawny adres email")
     @Size(max = 100, message = "Email nie może przekraczać 100 znaków")
     private String email;
 
