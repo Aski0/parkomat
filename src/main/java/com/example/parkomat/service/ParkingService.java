@@ -52,6 +52,7 @@ public class ParkingService {
         dto.setName(parking.getName());
         dto.setImageUrl(parking.getImageUrl());
         dto.setDescription(parking.getDescription());
+        dto.setAddress(parking.getAddress());
         dto.setLatitude(parking.getLatitude());
         dto.setLongitude(parking.getLongitude());
         dto.setParkId(parking.getParkId());

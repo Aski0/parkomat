@@ -9,6 +9,7 @@ public class ParkingDetailsResponseDto {
     @JsonProperty("parking_id")
     private Long id;
     private String name;
+    private String address;
     private String imageUrl;
     private String description;
     private Long latitude;
@@ -42,7 +43,8 @@ public class ParkingDetailsResponseDto {
     public void setLongitude(Long longitude) { this.longitude = longitude; }
     public Long getParkId() { return parkId; }
     public void setParkId(Long parkId) { this.parkId = parkId; }
-
+    public String getAddress() { return address; } // <--- GETTER
+    public void setAddress(String address) { this.address = address; } // <--- SETTER
     // ZMIANA TUTAJ: Typ parametru i zwracany typ
     public ParkResponseDto getPark() { return park; }
     public void setPark(ParkResponseDto park) { this.park = park; }
