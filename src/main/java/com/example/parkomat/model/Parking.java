@@ -24,6 +24,9 @@ public class Parking {
     @Column(name = "description", columnDefinition = "TEXT") // NOWE
     private String description;
 
+    @Column(name = "parking_address") // <--- NOWE POLE DLA ADRESU
+    private String address;
+
     @Column(name = "manager_id") // Klucz obcy do tabeli Managers (User)
     private Long managerId;
 
@@ -48,6 +51,8 @@ public class Parking {
     public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
+    public String getAddress() { return address; } // <--- GETTER DLA ADRESU
+    public void setAddress(String address) { this.address = address; } // <--- SETTER DLA ADRESU
     public Long getManagerId() { return managerId; }
     public void setManagerId(Long managerId) { this.managerId = managerId; }
     public Long getLatitude() { return latitude; }

@@ -13,7 +13,8 @@ public class ParkingResponseDto {
     private Long managerId;
     private Long latitude; // Typ Long, tak jak w encji
     private Long longitude; // Typ Long
-
+    private String imageUrl;
+    private String address;
     @JsonProperty("park_id") // Mapuje to pole na "park_id" w JSON
     private Long parkId; // Nazwa pola w Javie, pobrane z encji Parking.parkId
 
@@ -21,13 +22,15 @@ public class ParkingResponseDto {
     public ParkingResponseDto() {
     }
 
-    public ParkingResponseDto(Long id, String name, Long managerId, Long latitude, Long longitude, Long parkId) {
+    public ParkingResponseDto(Long id, String name, Long managerId, Long latitude, Long longitude, Long parkId, String address, String imageUrl) {
         this.id = id;
         this.name = name;
         this.managerId = managerId;
         this.latitude = latitude;
         this.longitude = longitude;
         this.parkId = parkId;
+        this.address= address;
+        this.imageUrl = imageUrl;
     }
 
     // Gettery i Settery
@@ -41,6 +44,10 @@ public class ParkingResponseDto {
     public void setLatitude(Long latitude) { this.latitude = latitude; }
     public Long getLongitude() { return longitude; }
     public void setLongitude(Long longitude) { this.longitude = longitude; }
+    public String getImageUrl() { return imageUrl; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+    public String getAddress() { return address; } // <--- GETTER
+    public void setAddress(String address) { this.address = address; } // <--- SETTER
     public Long getParkId() { return parkId; }
     public void setParkId(Long parkId) { this.parkId = parkId; }
 }

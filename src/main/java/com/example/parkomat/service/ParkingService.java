@@ -141,6 +141,8 @@ public class ParkingService {
         // Ustaw inne pola, jeśli ParkingResponseDto ich wymaga, np.:
         // dto.setImageUrl(parking.getImageUrl()); // Jeśli chcesz zdjęcie w liście
         // dto.setParkId(parking.getParkId()); // Jeśli chcesz ID parku w liście
+        dto.setImageUrl(parking.getImageUrl()); // <--- USTAW IMAGE URL
+        dto.setAddress(parking.getAddress());   // <--- USTAW ADRES
 
         return dto;
     }
