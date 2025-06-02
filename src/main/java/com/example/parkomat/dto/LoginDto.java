@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LoginDto {
-    @Email(message = "Podaj poprawny adres email")
+    @Email(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "Podaj poprawny adres email")
     @NotBlank(message = "Email nie może być pusty")
     private String email;
 
