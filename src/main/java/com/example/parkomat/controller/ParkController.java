@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/parks")
-@CrossOrigin(origins = "http://localhost:3000") // Dostosuj w razie potrzeby
+@CrossOrigin(origins = "http://localhost:5174") // Dostosuj w razie potrzeby
 public class ParkController {
     private final ParkService parkService;
     private final ParkingService parkingService; // Dodane dla endpointu z parkingami

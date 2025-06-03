@@ -15,11 +15,14 @@ public class Reservation {
     @Column(name = "reservation_date")
     private Date reservationDate;
 
-    @Column(name = "group_id")
-    private Long groupId;
+    @Column(name = "typ")
+    private String typ;
 
-    @Column(name = "parking_code")
-    private Long parkingCode;
+    @Column(name = "parking_id")
+    private Long parkingId;
+
+    @Column(name = "parking_code", unique = true)
+    private String parkingCode;
 
     @Column(name = "reserver_email")
     private String reserverEmail;
@@ -34,15 +37,34 @@ public class Reservation {
     public Date getReservationDate() { return reservationDate; }
     public void setReservationDate(Date reservationStartDate) { this.reservationDate = reservationStartDate; }
 
-    public Long getGroupId() { return groupId; }
-    public void setGroupId(Long groupId) { this.groupId = groupId; }
-
-    public Long getParkingCode() { return parkingCode; }
-    public void setParkingCode(Long parkingCode) { this.parkingCode = parkingCode; }
 
     public String getReserverEmail() { return reserverEmail; }
     public void setReserverEmail(String reserverEmail) { this.reserverEmail = reserverEmail; }
 
     public Boolean getStatus() { return status; }
     public void setStatus(Boolean status) { this.status = status; }
+
+    public String getParkingCode() {
+        return parkingCode;
+    }
+
+    public void setParkingCode(String parkingCode) {
+        this.parkingCode = parkingCode;
+    }
+
+    public String getTyp() {
+        return typ;
+    }
+
+    public void setTyp(String typ) {
+        this.typ = typ;
+    }
+
+    public Long getParkingId() {
+        return parkingId;
+    }
+
+    public void setParkingId(Long parkingId) {
+        this.parkingId = parkingId;
+    }
 }
