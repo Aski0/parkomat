@@ -40,13 +40,16 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthorizationFilter jwtAuthorizationFilter) throws Exception {
         http
-                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Enable CORS
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Optional: Since you're using JWT
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/**").permitAll()).authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll());
-                //.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
+                        // Zezwól na dostęp do endpointów autoryzacji (rejestracja, logowanie) bez uwierzytelnienia
+                        .requestMatchers("/api/auth/**").permitAll()
+                        // Wszelkie inne żądania wymagają uwierzytelnienia
+                        .anyRequest().authenticated()
+                )
+                .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class); // Włącz filtr JWT
 
         return http.build();
     }
