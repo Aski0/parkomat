@@ -2,7 +2,9 @@ package com.example.parkomat.service;
 
 import com.example.parkomat.dto.PlaceGroupsRequestDto;
 import com.example.parkomat.dto.ReservationDto;
+import com.example.parkomat.model.Parking;
 import com.example.parkomat.model.Reservation;
+import com.example.parkomat.repository.ParkingRepository;
 import com.example.parkomat.repository.ReservationRepository;
 import com.example.parkomat.service.exceptions.ReservationNotFoundException;
 import org.springframework.stereotype.Service;
@@ -12,9 +14,15 @@ import java.util.*;
 @Service
 public class ReservationService {
     private final ReservationRepository reservationRepository;
+    private final EmailService emailService;
+    private final ParkingRepository parkingRepository;
 
-    public ReservationService(ReservationRepository reservationRepository) {
+    public ReservationService(ReservationRepository reservationRepository,
+                              EmailService emailService,
+                              ParkingRepository parkingRepository) {
         this.reservationRepository = reservationRepository;
+        this.emailService = emailService;
+        this.parkingRepository = parkingRepository;
     }
 
     public List<Reservation> getAllReservations() {
@@ -62,6 +70,19 @@ public class ReservationService {
                 }
             }
             calendar.add(Calendar.DATE, 1); // przejdź do następnego dnia
+        }
+        Parking parking = parkingRepository.findById(reservationDto.getParkingId())
+                .orElseThrow(() -> new RuntimeException("Parking not found with id: " + reservationDto.getParkingId()));
+
+        for (Reservation savedReservation : createdReservations) {
+            // Send email with QR code for each reservation
+            emailService.sendReservationEmail(
+                    savedReservation.getReserverEmail(),
+                    savedReservation.getParkingCode(),
+                    parking.getName(),
+                    parking.getAddress(),
+                    savedReservation.getReservationDate()
+            );
         }
 
         return createdReservations;
