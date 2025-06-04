@@ -1,0 +1,15 @@
+meta {
+  name: get by id
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/parkings/:id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: 1
+}

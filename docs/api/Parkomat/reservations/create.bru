@@ -1,0 +1,22 @@
+meta {
+  name: create
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/reservations
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "reservationEndDate": "2025-04-23T19:02:05.128+00:00",
+    "reservationStartDate": "2025-04-23T19:02:05.128+00:00",
+    "groupId": 1,
+    "parkingCode": 22222,
+    "reserverEmail": "xd",
+    "status": null
+  }
+}
