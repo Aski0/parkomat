@@ -1,10 +1,15 @@
 package com.example.parkomat.controller;
 
+import com.example.parkomat.dto.FreeSpotsDto;
 import com.example.parkomat.dto.ReservationDto;
 import com.example.parkomat.model.Reservation;
 import com.example.parkomat.service.ReservationService;
+import jakarta.transaction.Transactional;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -35,11 +40,23 @@ public class ReservationController {
     public Reservation updateReservation(@PathVariable int id, @RequestBody Reservation reservation) {
         return reservationService.updateReservation(id, reservation);
     }
-
-    @DeleteMapping("/{id}")
-    public void deleteReservation(@PathVariable int id) {
-        reservationService.deleteReservation(id);
+    @Transactional
+    @DeleteMapping("/{code}")
+    public void deleteReservation(@PathVariable String code) {
+        reservationService.deleteReservation(code);
     }
 
+
+    @GetMapping("/quantity/{id}")
+    public List<FreeSpotsDto> getQuantity(
+            @PathVariable long id,
+            @RequestParam(name = "data", required = false) LocalDate date // Data z RequestParam, ale opcjonalna
+    ) {
+        if (date == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Parametr 'data' (data rezerwacji) jest wymagany i musi być podany w formacie RRRR-MM-DD.");
+        }
+
+        return reservationService.countFreeSpots(id, date);
+    }
 }
 

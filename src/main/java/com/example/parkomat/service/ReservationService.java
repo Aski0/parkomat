@@ -1,14 +1,17 @@
 package com.example.parkomat.service;
 
+import com.example.parkomat.dto.FreeSpotsDto;
 import com.example.parkomat.dto.PlaceGroupsRequestDto;
 import com.example.parkomat.dto.ReservationDto;
 import com.example.parkomat.model.Parking;
 import com.example.parkomat.model.Reservation;
 import com.example.parkomat.repository.ParkingRepository;
 import com.example.parkomat.repository.ReservationRepository;
+import com.example.parkomat.repository.projection.DailyVehicleCountProjection;
 import com.example.parkomat.service.exceptions.ReservationNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -34,6 +37,7 @@ public class ReservationService {
 
         return p.orElseThrow(() -> new ReservationNotFoundException(reservationId));
     }
+
     public List<Reservation> createReservations(ReservationDto reservationDto) {
         Date startDate = reservationDto.getReservationStartDate();
         Date endDate = reservationDto.getReservationEndDate();
@@ -87,13 +91,15 @@ public class ReservationService {
 
         return createdReservations;
     }
-    public Reservation updateReservation (long reservationId, Reservation reservation) {
+
+    public Reservation updateReservation(long reservationId, Reservation reservation) {
         reservation.setId(reservationId);
 
         return reservationRepository.saveAndFlush(reservation);
     }
-    public void deleteReservation (long reservationId) {
-        reservationRepository.deleteById(reservationId);
+
+    public void deleteReservation(String code) {
+        reservationRepository.deleteByParkingCode(code);
     }
 
     private String generateRandomParkingCode() {
@@ -106,5 +112,26 @@ public class ReservationService {
         }
 
         return codeBuilder.toString();
+    }
+
+    public List<FreeSpotsDto> countFreeSpots(Long parkingId, LocalDate date) {
+
+        List<DailyVehicleCountProjection> counts = reservationRepository.countReservationsAndTypeByParkingIdAndDate(parkingId, date);
+
+        if (counts.isEmpty()) {
+
+            return new ArrayList<>();
+        }
+
+        List<FreeSpotsDto> freeSpotsList = new ArrayList<>();
+        for (DailyVehicleCountProjection projection : counts) {
+            // Użyj konstruktora FreeSpotsDto do utworzenia nowego obiektu
+            FreeSpotsDto freeSpotsDto = new FreeSpotsDto();
+            freeSpotsDto.setType(projection.getType());
+            freeSpotsDto.setReservationCount(projection.getReservationCount());
+            freeSpotsList.add(freeSpotsDto);
+        }
+
+        return freeSpotsList;
     }
 }
