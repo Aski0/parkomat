@@ -1,5 +1,6 @@
 package com.example.parkomat.controller;
 
+import com.example.parkomat.dto.ReservationDto;
 import com.example.parkomat.model.Reservation;
 import com.example.parkomat.service.ReservationService;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +27,8 @@ public class ReservationController {
     }
 
     @PostMapping
-    public Reservation createReservation(@RequestBody Reservation reservation) {
-        return reservationService.createReservation(reservation);
+    public List <Reservation> createReservation(@RequestBody ReservationDto reservation) {
+       return reservationService.createReservations(reservation);
     }
 
     @PutMapping("/{id}")

@@ -1,46 +1,113 @@
+// src/main/java/com/example/parkomat/service/ParkingService.java
 package com.example.parkomat.service;
 
-import com.example.parkomat.model.Parking;
-import com.example.parkomat.repository.ParkingRepository;
-import com.example.parkomat.service.exceptions.ParkNotFoundException;
+import com.example.parkomat.dto.*;
+import com.example.parkomat.model.*;
+import com.example.parkomat.repository.*;
+import com.example.parkomat.service.exceptions.ResourceNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class ParkingService {
     private final ParkingRepository parkingRepository;
+    private final ParkRepository parkRepository;
+    private final UserRepository userRepository;
+    private final PlaceGroupRepository placeGroupRepository;
 
-    public ParkingService(ParkingRepository parkingRepository) {
-        this.parkingRepository = parkingRepository;
+    @Transactional(readOnly = true)
+    public ParkingDetailsResponseDto getParkingDetailsById(Long parkingId) {
+        Parking parking = parkingRepository.findById(parkingId)
+                .orElseThrow(() -> new ResourceNotFoundException("Parking", parkingId));
+
+        return buildParkingDetailsResponseDto(parking);
     }
 
-    public List<Parking> getAllParkings() {
-        return parkingRepository.findAll();
+    @Transactional(readOnly = true)
+    public List<ParkingResponseDto> getParkingsByParkId(Long parkId) {
+        if (!parkRepository.existsById(parkId)) {
+            return List.of();
+        }
+
+        return parkingRepository.findByParkId(parkId).stream()
+                .map(this::buildParkingResponseDto)
+                .collect(Collectors.toList());
     }
 
-
-
-    public Parking getParkingById(long parkingId) {
-        Optional<Parking> p = parkingRepository.findById(parkingId);
-
-        return p.orElseThrow(() -> new ParkNotFoundException(parkingId));
+    // --- NOWA/ZMIENIONA METODA ---
+    @Transactional(readOnly = true)
+    public List<ParkingResponseDto> getParkingsByManagerId(Long managerId) { // Zmieniono nazwę parametru
+        // Upewnij się, że ParkingRepository ma metodę findByManagerId(Long managerId)
+        return parkingRepository.findByManagerId(managerId).stream() // Wywołaj findByManagerId
+                .map(this::buildParkingResponseDto)
+                .collect(Collectors.toList());
     }
 
-    public Parking createParking(Parking parking) {
+    // --- Metody pomocnicze do tworzenia DTO (niezmienione, poza usunięciem Optional jeśli nieużywane) ---
 
-        return parkingRepository.saveAndFlush(parking);
+    private ParkingDetailsResponseDto buildParkingDetailsResponseDto(Parking parking) {
+        ParkingDetailsResponseDto dto = new ParkingDetailsResponseDto();
+        dto.setId(parking.getId());
+        dto.setName(parking.getName());
+        dto.setImageUrl(parking.getImageUrl());
+        dto.setDescription(parking.getDescription());
+        dto.setLatitude(parking.getLatitude());
+        dto.setLongitude(parking.getLongitude());
+        dto.setParkId(parking.getParkId());
+
+        if (parking.getParkId() != null) {
+            parkRepository.findById(parking.getParkId()).ifPresent(parkEntity ->
+                    dto.setPark(new ParkResponseDto(
+                            parkEntity.getId(),
+                            parkEntity.getName(),
+                            parkEntity.getLatitude(),
+                            parkEntity.getLongitude(),
+                            parkEntity.getParkLogoLink()
+                    ))
+            );
+        }
+
+        if (parking.getManagerId() != null) {
+            userRepository.findById(parking.getManagerId()).ifPresent(managerEntity ->
+                    dto.setManager(new UserResponseDto(
+                            managerEntity.getId(),
+                            managerEntity.getFirstName(),
+                            managerEntity.getLastName(),
+                            managerEntity.getEmail(),
+                            managerEntity.getPhone()
+                    ))
+            );
+        }
+
+        List<PlaceGroup> placeGroups = placeGroupRepository.findByParkingId(parking.getId());
+        dto.setPlaceGroups(placeGroups.stream()
+                .map(pg -> new PlaceGroupDto(pg.getId(), pg.getType(), pg.getQuantity()))
+                .collect(Collectors.toList()));
+
+        return dto;
     }
 
-    public Parking updateParking(long parkingId, Parking parking) {
-        parking.setId(parkingId);
+    private ParkingResponseDto buildParkingResponseDto(Parking parking) {
+        List<PlaceGroupDto> placeGroups = placeGroupRepository.findByParkingId(parking.getId())
+                .stream()
+                .map(pg -> new PlaceGroupDto(pg.getId(), pg.getType(), pg.getQuantity()))
+                .collect(Collectors.toList());
 
-        return parkingRepository.saveAndFlush(parking);
+        return new ParkingResponseDto(
+                parking.getId(),
+                parking.getName(),
+                parking.getManagerId(),
+                parking.getLatitude(),
+                parking.getLongitude(),
+                parking.getParkId(),
+                parking.getAddress(),
+                parking.getImageUrl(),
+                placeGroups
+        );
     }
-
-    public void deleteParking(long parkingId) {
-        parkingRepository.deleteById(parkingId);
-    }
-
 }
