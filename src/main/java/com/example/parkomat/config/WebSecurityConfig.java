@@ -46,6 +46,9 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // Zezwól na dostęp do endpointów autoryzacji (rejestracja, logowanie) bez uwierzytelnienia
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/parks/**").permitAll()
+                        .requestMatchers("/api/reservations/**").permitAll()
+                        .requestMatchers("/api/parkings/**").permitAll()
                         // Wszelkie inne żądania wymagają uwierzytelnienia
                         .anyRequest().authenticated()
                 )

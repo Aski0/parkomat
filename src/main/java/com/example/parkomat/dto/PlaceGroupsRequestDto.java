@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PlaceGroupsRequestDto {
-    private String typ;
+    private String type;    // <--- Change from "typ" to "type"
     private int quantity;
 }

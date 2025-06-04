@@ -16,7 +16,7 @@ public class Reservation {
     private Date reservationDate;
 
     @Column(name = "typ")
-    private String typ;
+    private String type;
 
     @Column(name = "parking_id")
     private Long parkingId;
@@ -53,11 +53,11 @@ public class Reservation {
     }
 
     public String getTyp() {
-        return typ;
+        return type;
     }
 
-    public void setTyp(String typ) {
-        this.typ = typ;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public Long getParkingId() {

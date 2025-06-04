@@ -59,7 +59,7 @@ public class ReservationService {
                     reservation.setParkingId(reservationDto.getParkingId()); // Możesz dostosować to do swoich potrzeb
                     reservation.setParkingCode(generateRandomParkingCode()); // Możesz dostosować to do swoich potrzeb
                     reservation.setReserverEmail(reservationDto.getReserveEmail()); // Możesz dostosować to do swoich potrzeb
-                    reservation.setTyp(group.getTyp());
+                    reservation.setType(group.getType());
                     reservation.setStatus(true); // domyślnie aktywna rezerwacja
 
                     // Dodatkowe pole jeśli chcesz zapisać typ miejsca
