@@ -2,7 +2,11 @@
 package com.example.parkomat.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "PlaceGroups")
 public class PlaceGroup {
@@ -20,15 +24,8 @@ public class PlaceGroup {
     @Column(name = "quantity")
     private Long quantity;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    @Column(name = "price")
+    private Double price;
 
-    public Long getParkingId() { return parkingId; }
-    public void setParkingId(Long parkingId) { this.parkingId = parkingId; }
 
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
-
-    public Long getQuantity() { return quantity; }
-    public void setQuantity(Long quantity) { this.quantity = quantity; }
 }

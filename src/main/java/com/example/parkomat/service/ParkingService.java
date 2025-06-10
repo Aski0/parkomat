@@ -86,7 +86,7 @@ public class ParkingService {
 
         List<PlaceGroup> placeGroups = placeGroupRepository.findByParkingId(parking.getId());
         dto.setPlaceGroups(placeGroups.stream()
-                .map(pg -> new PlaceGroupDto(pg.getId(), pg.getType(), pg.getQuantity()))
+                .map(pg -> new PlaceGroupDto(pg.getId(), pg.getType(), pg.getQuantity(), pg.getPrice()))
                 .collect(Collectors.toList()));
 
         return dto;
@@ -95,7 +95,7 @@ public class ParkingService {
     private ParkingResponseDto buildParkingResponseDto(Parking parking) {
         List<PlaceGroupDto> placeGroups = placeGroupRepository.findByParkingId(parking.getId())
                 .stream()
-                .map(pg -> new PlaceGroupDto(pg.getId(), pg.getType(), pg.getQuantity()))
+                .map(pg -> new PlaceGroupDto(pg.getId(), pg.getType(), pg.getQuantity(), pg.getPrice()))
                 .collect(Collectors.toList());
 
         return new ParkingResponseDto(
