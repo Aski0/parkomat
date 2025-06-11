@@ -8,6 +8,7 @@ public class ParkResponseDto {
     private Double latitude;
     private Double longitude;
     private String parkLogoLink; // Zgodnie z frontendem (park.parkLogoLink)
+    private String sentence;
     // Możesz dodać mapOutline, jeśli jest potrzebny na liście lub stronie szczegółów
     // private String mapOutline;
 
@@ -15,12 +16,13 @@ public class ParkResponseDto {
     public ParkResponseDto() {
     }
 
-    public ParkResponseDto(Long id, String name, Double latitude, Double longitude, String parkLogoLink) {
+    public ParkResponseDto(Long id, String name, Double latitude, Double longitude, String parkLogoLink, String sentence) {
         this.id = id;
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
         this.parkLogoLink = parkLogoLink;
+        this.sentence = sentence;
     }
 
     // Gettery i Settery
@@ -34,4 +36,6 @@ public class ParkResponseDto {
     public void setLongitude(Double longitude) { this.longitude = longitude; }
     public String getParkLogoLink() { return parkLogoLink; }
     public void setParkLogoLink(String parkLogoLink) { this.parkLogoLink = parkLogoLink; }
+    public void setParkSentence(String sentence) {this.sentence = sentence;}
+    public String getSentence() { return sentence; }
 }

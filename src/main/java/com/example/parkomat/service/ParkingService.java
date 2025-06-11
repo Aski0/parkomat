@@ -67,7 +67,8 @@ public class ParkingService {
                             parkEntity.getName(),
                             parkEntity.getLatitude(),
                             parkEntity.getLongitude(),
-                            parkEntity.getParkLogoLink()
+                            parkEntity.getParkLogoLink(),
+                            parkEntity.getSentence()
                     ))
             );
         }

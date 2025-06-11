@@ -25,6 +25,18 @@ public class Park {
 
     @Column(name = "map_outline")
     private String mapOutline;
+    @Column(name = "sentence")
+    private String sentence;
+
+    public String getSentence() {
+        return sentence;
+    }
+
+    public void setSentence(String sentence) {
+        this.sentence = sentence;
+    }
+
+
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }

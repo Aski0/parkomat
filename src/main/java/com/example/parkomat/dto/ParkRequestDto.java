@@ -16,6 +16,7 @@ public class ParkRequestDto {
 
     private String parkLogoLink; // Może być opcjonalny
     private String mapOutline;   // Może być opcjonalny
+    private String sentence;
 
     // Gettery i Settery
     public String getName() { return name; }
@@ -28,4 +29,6 @@ public class ParkRequestDto {
     public void setParkLogoLink(String parkLogoLink) { this.parkLogoLink = parkLogoLink; }
     public String getMapOutline() { return mapOutline; }
     public void setMapOutline(String mapOutline) { this.mapOutline = mapOutline; }
+    public String getSentence() { return sentence; }
+    public void setSentence(String sentence) { this.sentence = sentence; }
 }

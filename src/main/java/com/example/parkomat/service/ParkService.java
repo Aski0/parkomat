@@ -82,6 +82,7 @@ public class ParkService {
         Dto.setLatitude(park.getLatitude());
         Dto.setLongitude(park.getLongitude());
         Dto.setParkLogoLink(park.getParkLogoLink());
+        Dto.setParkSentence(park.getSentence());
         // Dto.setMapOutline(park.getMapOutline()); // Jeśli masz to pole w ParkResponseDto
         return Dto;
     }
