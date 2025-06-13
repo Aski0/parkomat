@@ -1,4 +1,3 @@
-// src/main/java/com/example/parkomat/service/ParkingService.java
 package com.example.parkomat.service;
 
 import com.example.parkomat.dto.*;
@@ -39,17 +38,12 @@ public class ParkingService {
                 .collect(Collectors.toList());
     }
 
-    // --- NOWA/ZMIENIONA METODA ---
     @Transactional(readOnly = true)
-    public List<ParkingResponseDto> getParkingsByManagerId(Long managerId) { // Zmieniono nazwę parametru
-        // Upewnij się, że ParkingRepository ma metodę findByManagerId(Long managerId)
-        return parkingRepository.findByManagerId(managerId).stream() // Wywołaj findByManagerId
+    public List<ParkingResponseDto> getParkingsByManagerId(Long managerId) {
+        return parkingRepository.findByManagerId(managerId).stream()
                 .map(this::buildParkingResponseDto)
                 .collect(Collectors.toList());
     }
-
-    // --- Metody pomocnicze do tworzenia DTO (niezmienione, poza usunięciem Optional jeśli nieużywane) ---
-
     private ParkingDetailsResponseDto buildParkingDetailsResponseDto(Parking parking) {
         ParkingDetailsResponseDto dto = new ParkingDetailsResponseDto();
         dto.setId(parking.getId());

@@ -49,8 +49,6 @@ public class ReservationService {
 
         Calendar endCalendar = Calendar.getInstance();
         endCalendar.setTime(endDate);
-
-        // Przechodzimy przez każdy dzień w zakresie dat
         while (!calendar.after(endCalendar)) {
             Date currentDate = calendar.getTime();
 
@@ -60,14 +58,11 @@ public class ReservationService {
                 for (int i = 0; i < group.getQuantity(); i++) {
                     Reservation reservation = new Reservation();
                     reservation.setReservationDate(currentDate);
-                    reservation.setParkingId(reservationDto.getParkingId()); // Możesz dostosować to do swoich potrzeb
-                    reservation.setParkingCode(generateRandomParkingCode()); // Możesz dostosować to do swoich potrzeb
-                    reservation.setReserverEmail(reservationDto.getReserveEmail()); // Możesz dostosować to do swoich potrzeb
+                    reservation.setParkingId(reservationDto.getParkingId());
+                    reservation.setParkingCode(generateRandomParkingCode());
+                    reservation.setReserverEmail(reservationDto.getReserveEmail());
                     reservation.setType(group.getType());
                     reservation.setStatus(true); // domyślnie aktywna rezerwacja
-
-                    // Dodatkowe pole jeśli chcesz zapisać typ miejsca
-                    // reservation.setPlaceType(group.getTyp());
 
                     Reservation savedReservation = reservationRepository.save(reservation);
                     createdReservations.add(savedReservation);
@@ -125,7 +120,6 @@ public class ReservationService {
 
         List<FreeSpotsDto> freeSpotsList = new ArrayList<>();
         for (DailyVehicleCountProjection projection : counts) {
-            // Użyj konstruktora FreeSpotsDto do utworzenia nowego obiektu
             FreeSpotsDto freeSpotsDto = new FreeSpotsDto();
             freeSpotsDto.setType(projection.getType());
             freeSpotsDto.setReservationCount(projection.getReservationCount());

@@ -1,4 +1,3 @@
-// com.example.parkomat.Dto.ParkingDetailsResponseDto.java
 package com.example.parkomat.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -18,14 +17,12 @@ public class ParkingDetailsResponseDto {
     @JsonProperty("park_id")
     private Long parkId;
 
-    @JsonProperty("place_groups") // Nazwa pola w JSON
-    private List<PlaceGroupDto> placeGroups; // NOWE POLE
+    @JsonProperty("place_groups")
+    private List<PlaceGroupDto> placeGroups;
 
-    // ZMIANA TUTAJ: Użyj istniejącego ParkResponseDto
-    private ParkResponseDto park;      // Informacje o parku
-    private UserResponseDto manager;    // Informacje o managerze (User)
+    private ParkResponseDto park;
+    private UserResponseDto manager;
 
-    // Konstruktory, Gettery, Settery
     public ParkingDetailsResponseDto() {}
 
     // Gettery i Settery
@@ -45,13 +42,10 @@ public class ParkingDetailsResponseDto {
     public void setParkId(Long parkId) { this.parkId = parkId; }
     public String getAddress() { return address; } // <--- GETTER
     public void setAddress(String address) { this.address = address; } // <--- SETTER
-    // ZMIANA TUTAJ: Typ parametru i zwracany typ
     public ParkResponseDto getPark() { return park; }
     public void setPark(ParkResponseDto park) { this.park = park; }
-
     public UserResponseDto getManager() { return manager; }
     public void setManager(UserResponseDto manager) { this.manager = manager; }
-
     public List<PlaceGroupDto> getPlaceGroups() { return placeGroups; }
     public void setPlaceGroups(List<PlaceGroupDto> placeGroups) { this.placeGroups = placeGroups; }
 }

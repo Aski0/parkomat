@@ -44,7 +44,7 @@ public class WebSecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        // Zezwól na dostęp do endpointów autoryzacji (rejestracja, logowanie) bez uwierzytelnienia
+                        //dostęp do endpointów autoryzacji (rejestracja, logowanie) bez uwierzytelnienia
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/parks/**").permitAll()
                         .requestMatchers("/api/reservations/**").permitAll()
@@ -52,7 +52,7 @@ public class WebSecurityConfig {
                         // Wszelkie inne żądania wymagają uwierzytelnienia
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class); // Włącz filtr JWT
+                .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

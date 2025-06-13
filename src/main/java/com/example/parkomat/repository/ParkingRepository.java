@@ -9,10 +9,6 @@ import java.util.List;
 
 @Repository
 public interface ParkingRepository extends JpaRepository<Parking, Long> {
-    // Zmień FindByOwnerId na FindByManagerId, aby pasowało do pola w encji Parking
-    List<Parking> findByManagerId(Long managerId); // Spring Data JPA znajdzie pole 'managerId'
-    // lub metodę 'getManagerId()' w encji Parking.
-
-    // Zachowaj inne istniejące metody
+    List<Parking> findByManagerId(Long managerId);
     List<Parking> findByParkId(Long parkId);
 }

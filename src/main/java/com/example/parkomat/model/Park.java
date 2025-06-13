@@ -1,4 +1,3 @@
-//model Park.java
 package com.example.parkomat.model;
 
 import jakarta.persistence.*;

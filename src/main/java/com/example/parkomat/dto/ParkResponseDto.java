@@ -1,18 +1,14 @@
-// src/main/java/com/example/parkomat/dto/ParkResponseDTO.java
 package com.example.parkomat.dto;
 
-// Ten DTO będzie używany do odpowiedzi dla /api/parks i /api/parks/{id}
+
 public class ParkResponseDto {
-    private Long id; // Zgodnie z frontendem (park.id)
+    private Long id;
     private String name;
     private Double latitude;
     private Double longitude;
-    private String parkLogoLink; // Zgodnie z frontendem (park.parkLogoLink)
+    private String parkLogoLink;
     private String sentence;
-    // Możesz dodać mapOutline, jeśli jest potrzebny na liście lub stronie szczegółów
-    // private String mapOutline;
 
-    // Konstruktory
     public ParkResponseDto() {
     }
 

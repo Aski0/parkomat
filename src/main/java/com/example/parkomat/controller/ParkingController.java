@@ -1,4 +1,3 @@
-// com.example.parkomat.controller.ParkingController.java
 package com.example.parkomat.controller;
 
 import com.example.parkomat.dto.ParkingDetailsResponseDto;
@@ -9,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/parkings")
-@CrossOrigin(origins = "http://localhost:3000") // Dostosuj do swojego frontendu
+@CrossOrigin(origins = "http://localhost:3000")
 public class ParkingController {
     private final ParkingService parkingService;
 

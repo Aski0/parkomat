@@ -1,4 +1,3 @@
-// src/main/java/com/example/parkomat/Dto/ParkingRequestDto.java
 package com.example.parkomat.dto;
 
 import jakarta.validation.constraints.NotBlank;
@@ -8,7 +7,7 @@ public class ParkingRequestDto {
     @NotBlank(message = "Parking name cannot be blank")
     private String name;
 
-    private Long managerId; // Może być opcjonalny
+    private Long managerId;
 
     @NotNull(message = "Latitude cannot be null")
     private Long latitude;

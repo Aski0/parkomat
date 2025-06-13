@@ -50,7 +50,7 @@ public class ReservationController {
     @GetMapping("/quantity/{id}")
     public List<FreeSpotsDto> getQuantity(
             @PathVariable long id,
-            @RequestParam(name = "data", required = false) LocalDate date // Data z RequestParam, ale opcjonalna
+            @RequestParam(name = "data", required = false) LocalDate date
     ) {
         if (date == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Parametr 'data' (data rezerwacji) jest wymagany i musi być podany w formacie RRRR-MM-DD.");

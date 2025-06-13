@@ -1,4 +1,3 @@
-// com.example.parkomat.repository.PlaceGroupRepository.java
 package com.example.parkomat.repository;
 
 import com.example.parkomat.model.PlaceGroup;

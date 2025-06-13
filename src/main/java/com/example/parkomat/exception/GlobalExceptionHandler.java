@@ -1,4 +1,3 @@
-// src/main/java/com/example/parkomat/exception/GlobalExceptionHandler.java
 package com.example.parkomat.exception;
 
 import com.example.parkomat.service.exceptions.ResourceNotFoundException;
@@ -43,14 +42,13 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
-    // Możesz dodać handlery dla innych ogólnych wyjątków
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleGlobalException(Exception ex, WebRequest request) {
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
         body.put("error", "Internal Server Error");
-        body.put("message", "An unexpected error occurred: " + ex.getMessage()); // Uważaj na wyciek szczegółów w produkcji
+        body.put("message", "An unexpected error occurred: " + ex.getMessage());
         body.put("path", request.getDescription(false).replace("uri=", ""));
         return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
     }

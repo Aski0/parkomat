@@ -1,12 +1,11 @@
-// src/main/java/com/example/parkomat/controller/ParkController.java
 package com.example.parkomat.controller;
 
 import com.example.parkomat.dto.ParkRequestDto;
 import com.example.parkomat.dto.ParkResponseDto;
-import com.example.parkomat.dto.ParkingResponseDto; // Do nowego endpointu
+import com.example.parkomat.dto.ParkingResponseDto;
 import com.example.parkomat.service.ParkService;
-import com.example.parkomat.service.ParkingService; // Do nowego endpointu
-import jakarta.validation.Valid; // Dla walidacji
+import com.example.parkomat.service.ParkingService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +15,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/parks")
-@CrossOrigin(origins = "http://localhost:5174") // Dostosuj w razie potrzeby
+@CrossOrigin(origins = "http://localhost:5174")
 public class ParkController {
     private final ParkService parkService;
-    private final ParkingService parkingService; // Dodane dla endpointu z parkingami
+    private final ParkingService parkingService;
 
     @Autowired
     public ParkController(ParkService parkService, ParkingService parkingService) {
@@ -32,7 +31,7 @@ public class ParkController {
         return ResponseEntity.ok(parkService.getAllParks());
     }
 
-    @GetMapping("/{parkId}") // Zmieniono id na parkId dla spójności, typ na Long
+    @GetMapping("/{parkId}")
     public ResponseEntity<ParkResponseDto> getParkById(@PathVariable Long parkId) {
         return ResponseEntity.ok(parkService.getParkById(parkId));
     }
@@ -49,13 +48,13 @@ public class ParkController {
         return new ResponseEntity<>(createdPark, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{parkId}") // Zmieniono id na parkId, typ na Long
+    @PutMapping("/{parkId}")
     public ResponseEntity<ParkResponseDto> updatePark(@PathVariable Long parkId,
                                                       @Valid @RequestBody ParkRequestDto parkRequestDto) {
         return ResponseEntity.ok(parkService.updatePark(parkId, parkRequestDto));
     }
 
-    @DeleteMapping("/{parkId}") // Zmieniono id na parkId, typ na Long
+    @DeleteMapping("/{parkId}")
     public ResponseEntity<Void> deletePark(@PathVariable Long parkId) {
         parkService.deletePark(parkId);
         return ResponseEntity.noContent().build(); // Standardowa odpowiedź dla DELETE

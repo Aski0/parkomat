@@ -1,4 +1,3 @@
-// src/main/java/com/example/parkomat/service/ParkService.java
 package com.example.parkomat.service;
 
 import com.example.parkomat.dto.ParkRequestDto;
@@ -17,12 +16,12 @@ import java.util.stream.Collectors;
 public class ParkService {
     private final ParkRepository parkRepository;
 
-    @Autowired // Dodaj @Autowired dla jasności, chociaż dla pojedynczego konstruktora jest opcjonalne
+    @Autowired
     public ParkService(ParkRepository parkRepository) {
         this.parkRepository = parkRepository;
     }
 
-    @Transactional(readOnly = true) // Dobra praktyka dla metod tylko do odczytu
+    @Transactional(readOnly = true)
     public List<ParkResponseDto> getAllParks() {
         return parkRepository.findAll().stream()
                 .map(this::convertToDto)
@@ -30,13 +29,13 @@ public class ParkService {
     }
 
     @Transactional(readOnly = true)
-    public ParkResponseDto getParkById(Long parkId) { // Zmieniono typ na Long
+    public ParkResponseDto getParkById(Long parkId) {
         Park park = parkRepository.findById(parkId)
                 .orElseThrow(() -> new ResourceNotFoundException("Park", parkId));
         return convertToDto(park);
     }
 
-    @Transactional // Metody modyfikujące dane powinny być transakcyjne
+    @Transactional
     public ParkResponseDto createPark(ParkRequestDto parkRequestDto) {
         Park park = new Park();
         // Mapowanie z Dto do Encji
@@ -46,12 +45,12 @@ public class ParkService {
         park.setParkLogoLink(parkRequestDto.getParkLogoLink());
         //park.setMapOutline(parkRequestDto.getMapOutline());
 
-        Park savedPark = parkRepository.save(park); // save wystarczy, saveAndFlush rzadko potrzebne
+        Park savedPark = parkRepository.save(park);
         return convertToDto(savedPark);
     }
 
     @Transactional
-    public ParkResponseDto updatePark(Long parkId, ParkRequestDto parkRequestDto) { // Zmieniono typ na Long
+    public ParkResponseDto updatePark(Long parkId, ParkRequestDto parkRequestDto) {
         Park existingPark = parkRepository.findById(parkId)
                 .orElseThrow(() -> new ResourceNotFoundException("Park", parkId));
 
@@ -67,7 +66,7 @@ public class ParkService {
     }
 
     @Transactional
-    public void deletePark(Long parkId) { // Zmieniono typ na Long
+    public void deletePark(Long parkId) {
         if (!parkRepository.existsById(parkId)) {
             throw new ResourceNotFoundException("Park", parkId);
         }
@@ -83,7 +82,7 @@ public class ParkService {
         Dto.setLongitude(park.getLongitude());
         Dto.setParkLogoLink(park.getParkLogoLink());
         Dto.setParkSentence(park.getSentence());
-        // Dto.setMapOutline(park.getMapOutline()); // Jeśli masz to pole w ParkResponseDto
+        // Dto.setMapOutline(park.getMapOutline());
         return Dto;
     }
 }

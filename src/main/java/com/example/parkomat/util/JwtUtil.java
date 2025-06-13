@@ -15,7 +15,6 @@ public class JwtUtil {
 
     private final Key key;
 
-    // Wstrzyknięcie klucza z application.properties
     public JwtUtil(@Value("${jwt.secret}") String secret) {
         // Dekodowanie klucza Base64 i tworzenie obiektu Key
         this.key = Keys.hmacShaKeyFor(Base64.getDecoder().decode(secret));
@@ -27,7 +26,7 @@ public class JwtUtil {
                 .setSubject(email)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expirationMS))
-                .signWith(key, SignatureAlgorithm.HS512) // Określ algorytm podpisu
+                .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
     }
 
@@ -48,8 +47,6 @@ public class JwtUtil {
                     .parseClaimsJws(token);
             return true;
         } catch (Exception e) {
-            // Opcjonalnie: loguj błąd dla debugowania
-            // System.err.println("JWT Validation Error: " + e.getMessage());
             return false;
         }
     }

@@ -1,4 +1,3 @@
-
 package com.example.parkomat.model;
 
 import jakarta.persistence.*;
@@ -14,16 +13,16 @@ public class Parking {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "image_url") // NOWE
+    @Column(name = "image_url")
     private String imageUrl;
 
-    @Column(name = "description", columnDefinition = "TEXT") // NOWE
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "parking_address") // <--- NOWE POLE DLA ADRESU
+    @Column(name = "parking_address")
     private String address;
 
-    @Column(name = "manager_id") // Klucz obcy do tabeli Managers (User)
+    @Column(name = "manager_id")
     private Long managerId;
 
     @Column(name = "latitude",nullable = false)
@@ -32,13 +31,12 @@ public class Parking {
     @Column(name = "longitude",nullable = false)
     private Long longitude;
 
-    @Column(name = "park_id") // Klucz obcy do tabeli Parks
+    @Column(name = "park_id")
     private Long parkId;
 
-    // Konstruktor
     public Parking() {}
 
-    // Gettery i Settery (jeśli nie używasz Lombok)
+    // Gettery i Settery
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -48,8 +46,8 @@ public class Parking {
     public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
-    public String getAddress() { return address; } // <--- GETTER DLA ADRESU
-    public void setAddress(String address) { this.address = address; } // <--- SETTER DLA ADRESU
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
     public Long getManagerId() { return managerId; }
     public void setManagerId(Long managerId) { this.managerId = managerId; }
 

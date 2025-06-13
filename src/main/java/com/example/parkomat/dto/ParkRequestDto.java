@@ -1,8 +1,7 @@
-// src/main/java/com/example/parkomat/Dto/ParkRequestDto.java
 package com.example.parkomat.dto;
 
-import jakarta.validation.constraints.NotBlank; // Dla walidacji
-import jakarta.validation.constraints.NotNull;  // Dla walidacji
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class ParkRequestDto {
     @NotBlank(message = "Park name cannot be blank")
@@ -14,8 +13,8 @@ public class ParkRequestDto {
     @NotNull(message = "Longitude cannot be null")
     private Double longitude;
 
-    private String parkLogoLink; // Może być opcjonalny
-    private String mapOutline;   // Może być opcjonalny
+    private String parkLogoLink;
+    private String mapOutline;
     private String sentence;
 
     // Gettery i Settery

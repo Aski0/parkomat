@@ -1,4 +1,3 @@
-//AuthController.java
 package com.example.parkomat.controller;
 
 import com.example.parkomat.dto.LoginDto;
@@ -34,7 +33,6 @@ public class AuthController {
             User user = userService.login(dto);
             String token = jwtUtil.generateToken(user.getEmail());
 
-            // Include userId in the response
             return ResponseEntity.ok(Map.of("token", token, "userId", user.getId()));
         } catch (UsernameNotFoundException | BadCredentialsException ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.getMessage());

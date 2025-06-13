@@ -18,14 +18,11 @@ public class ParkingResponseDto {
     @JsonProperty("park_id")
     private Long parkId;
 
-    @JsonProperty("place_groups")  // Dodane pole z adnotacją JSON
+    @JsonProperty("place_groups")
     private List<PlaceGroupDto> placeGroups;
 
-    // Konstruktory
     public ParkingResponseDto() {
     }
-
-    // Nowy konstruktor z placeGroups
     public ParkingResponseDto(Long id, String name, Long managerId, Long latitude,
                               Long longitude, Long parkId, String address,
                               String imageUrl, List<PlaceGroupDto> placeGroups) {
@@ -39,7 +36,7 @@ public class ParkingResponseDto {
         this.imageUrl = imageUrl;
         this.placeGroups = placeGroups;
     }
-    // Gettery i Settery (pozostałe bez zmian)
+    // Gettery i Settery
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getName() { return name; }
@@ -56,12 +53,9 @@ public class ParkingResponseDto {
     public void setAddress(String address) { this.address = address; }
     public Long getParkId() { return parkId; }
     public void setParkId(Long parkId) { this.parkId = parkId; }
-
-    // Nowe gettery i settery dla placeGroups
     public List<PlaceGroupDto> getPlaceGroups() {
         return placeGroups != null ? placeGroups : List.of();
     }
-
     public void setPlaceGroups(List<PlaceGroupDto> placeGroups) {
         this.placeGroups = placeGroups;
     }
